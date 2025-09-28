@@ -96,7 +96,7 @@ const ManageUser = () => {
                         </div>
                         <div className="form-check mb-3">
                           <input type="checkbox" name="rememberMe" checked={loginData.rememberMe} onChange={handleLoginChange} className="form-check-input" id="rememberMe" />
-                          <label htmlFor="rememberMe" className="form-check-label">Remember Me</label>
+                          <label htmlFor="rememberMe" className="form-check-label">Remember  Me</label>
                         </div>
                         <button type="submit" className="btn btn-primary btn-block">Login</button>
                       </form>
