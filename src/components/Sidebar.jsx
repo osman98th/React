@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
     return (
         <div>
-            <aside className="main-sidebar sidebar-dark-primary elevation-4">
+            <aside className="main-sidebar sidebar-bg elevation-4">
           {/* Brand Logo */}
           <a href="../../index.html" className="brand-link">
             <img

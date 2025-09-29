@@ -2,7 +2,7 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <div>
+        <div className="body-bg " > 
  <nav className="main-header navbar navbar-expand navbar-white navbar-light">
           {/* Left navbar links */}
           <ul className="navbar-nav">
