@@ -1,35 +1,48 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import { useNavigate, NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const AddCategory = () => {
+const EditCategory = () => {
+     const { id } = useParams();
   const [name, setFirstName] = useState("");
   const [note, setNote] = useState("");
   const navigate = useNavigate();
-  const save = () => {
-    const formdata = new FormData();
-    formdata.append("name", name);
-    formdata.append("note", note);
-    axios
-      .post(
-        "http://localhost/React-Mid/php/category/add_catagory.php",
-        formdata,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setFirstName("");
-        setNote("");
-        navigate("/manage-cat");
-      });
-  };
+  useEffect(() => {
+        axios
+            .get(
+                `http://localhost/React-Mid/php/category/edit_cat.php?id=${id}`
+            )
+            .then((res) => {
+                setFirstName(res.data.name);
+                setNote(res.data.note);
+            });
+    }, []);
+    const save = () => {
+        const formdata = new FormData();
+        formdata.append('name', name)
+        formdata.append('note', note)
+        formdata.append("id", id);
+
+        axios
+            .post(
+                "http://localhost/React-Mid/php/category/update_user.php",
+                formdata,
+                {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    },
+                }
+            )
+            .then((res) => {
+                console.log(res.data);
+                setFirstName('');
+                setNote('');
+                navigate("/manage-cat");
+            });
+    };
   return (
     <div>
       {/* <!-- Site wrapper --> */}
@@ -124,4 +137,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;

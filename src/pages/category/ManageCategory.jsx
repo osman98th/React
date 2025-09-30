@@ -1,8 +1,26 @@
-import React from 'react';
+
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar';
 import Sidebar from '../../components/Sidebar';
 import Footer from '../../components/Footer';
+import { NavLink } from "react-router-dom";
 const ManageCategory = () => {
+
+    const [items, setItems] = useState([]);
+
+  const itemDelete = (id) => {
+    axios.post("http://localhost/React-Mid/php/category/delete_cat.php?id=" + id)
+      .then((res) => (console.log(res)))
+
+    axios.get("http://localhost/React-Mid/php/category/list_catagory.php")
+      .then((res) => setItems(res.data))
+  }
+
+  useEffect(() => {
+    axios.get("http://localhost/React-Mid/php/category/list_catagory.php")
+      .then((res) => setItems(res.data))
+  }, [])
     return (
         <div>
         <div>
@@ -71,52 +89,26 @@ const ManageCategory = () => {
                               <th>Status</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td>183</td>
-                              <td>John Doe</td>
-                              <td>11-7-2014</td>
-                              <td>
-                               <button>Insart</button>
-                               <button>update</button>
-                               <button>delete</button>
-                              </td>
-                              
-                            </tr>
-                            <tr>
-                              <td>219</td>
-                              <td>Alexander Pierce</td>
-                              <td>11-7-2014</td>
-                               <td>
-                               <button>Insart</button>
-                               <button>update</button>
-                               <button>delete</button>
-                              </td>
-                             
-                            </tr>
-                            <tr>
-                              <td>657</td>
-                              <td>Bob Doe</td>
-                              <td>11-7-2014</td>
-                              
-                              <td>
-                               <button>Insart</button>
-                               <button>update</button>
-                               <button>delete</button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>175</td>
-                              <td>Mike Doe</td>
-                              <td>11-7-2014</td>
-                              <td>
-                               <button>Insart</button>
-                               <button>update</button>
-                               <button>delete</button>
-                              </td>
-                              
-                            </tr>
-                          </tbody>
+                         <tbody>
+                          {items.map((data, i) => {
+                            return (
+
+                              <tr key={i}>
+                                <th scope="row">{++i}</th>
+                                <td>{data.name}</td>
+                                <td>{data.note}</td>
+                                <td>
+                                  <NavLink to={`/editcategory/${data.id}`}>
+                                    <button className='btn btn-info mb-2 mt-2'>Update</button>
+                                  </NavLink>
+                                  <button className='btn btn-danger' onClick={() => { itemDelete(data.id) }}>Delete</button>
+                                </td>
+                              </tr>
+
+                            )
+                          })}
+
+                        </tbody>
                         </table>
                       </div>
                       {/* /.card-body */}

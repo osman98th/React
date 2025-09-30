@@ -12,6 +12,7 @@ import AddRoom from './pages/room/AddRoom';
 import Female from './pages/Student/Female';
 import Male from './pages/Student/Male';
 import ManageRoom from './pages/room/ManegeRoom';
+import EditCategory from './pages/category/EditCategory';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Route path="/manage-user" element={<ManageUser />} />
       <Route path="/add-cat" element={<AddCategory />} />
       <Route path="/manage-cat" element={<ManageCategory />} />
+      <Route path="/editcategory/:id" element={<EditCategory />} />
 
 
       <Route path="/add-room" element={<AddRoom/>} />
